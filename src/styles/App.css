@@ -3,6 +3,17 @@ body {
 }
 
 h1 {
+	margin-bottom: 40px;
 	color: tomato;
 	text-align: center;
+}
+
+.app {
+	margin-top: 60px;
+	text-align: center;
+}
+
+.whether {
+	display: inline-block;
+	text-align: left;
 }
