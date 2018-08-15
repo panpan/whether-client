@@ -9,12 +9,22 @@ const GET_WEATHER = gql`
       formattedAddress
       coordinates
       forecast {
+        cloudCover
+        humidity
         icon
-        temperature
+        precipProbability
         summary
-        temperatureHigh
-        temperatureLow
+        temperature
+        uvIndex
+        nextHour
+        next48Hours
         moonPhase
+        sunriseTime
+        sunsetTime
+        temperatureHigh
+        temperatureHighTime
+        temperatureLow
+        uvIndexTime
       }
     }
   }
@@ -29,20 +39,43 @@ const Weather = ({ address }) => (
       const { location } = data;
       const { formattedAddress, forecast } = location;
       const {
-        temperature,
+        cloudCover,
+        humidity,
+        // icon,
+        precipProbability,
         summary,
-        temperatureHigh,
-        temperatureLow,
+        temperature,
+        uvIndex,
+        nextHour,
+        // next48Hours,
         moonPhase,
+        // sunriseTime,
+        // sunsetTime,
+        temperatureHigh,
+        // temperatureHighTime,
+        temperatureLow,
+        // uvIndexTime,
       } = forecast;
 
       return (
         <div>
-          <p>{formattedAddress}</p>
-          <p>currently: {temperature}°F</p>
-          <p>forecast: {summary}</p>
-          <p>low / high: {temperatureLow}°F / {temperatureHigh}°F</p>
-          <p>moon phase: {moonPhase}</p>
+          <p>{formattedAddress.toLowerCase()}</p>
+          <div className='current'>
+            <h3>currently: {summary.toLowerCase()}</h3>
+            <p>temp: {temperature}°f</p>
+            <p>humidity: {humidity}</p>
+            <p>cloud cover: {cloudCover}</p>
+            <p>uv index: {uvIndex}</p>
+            <p>precipitation probability: {precipProbability}</p>
+          </div>
+          <div className='forecast'>
+            <p>next hour: {nextHour.toLowerCase()}</p>
+          </div>
+          <div className='today'>
+            <h3>today</h3>
+            <p>low / high: {temperatureLow}°f / {temperatureHigh}°f</p>
+            <p>moon phase: {moonPhase}</p>
+          </div>
         </div>
       );
     }}

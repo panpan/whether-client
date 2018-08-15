@@ -4,6 +4,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 import App from './components/App';
+import './styles/index.scss';
 
 const client = new ApolloClient({
   uri: 'https://knjab06g1j.execute-api.us-east-1.amazonaws.com/prod/graphql',

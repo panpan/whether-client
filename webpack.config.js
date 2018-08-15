@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const autoprefixer = require('autoprefixer');
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -19,21 +20,47 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           presets: ['env', 'react'],
-          plugins: ['transform-class-properties'],
+          plugins: [
+            'transform-class-properties',
+            [
+              'react-css-modules', {
+                filetypes: { '.scss': { syntax: 'postcss-scss' } },
+                generateScopedName: '[name]__[local]___[hash:base64:5]',
+              },
+            ],
+          ],
         },
       },
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         use: [
           prod ? MiniCssExtractPlugin.loader : 'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 2,
+              localIdentName: '[name]__[local]___[hash:base64:5]',
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [autoprefixer({ grid: true })],
+            },
+          },
+          'sass-loader',
         ],
       },
     ],
   },
   resolve: { extensions: ['*', '.js', '.jsx'] },
   plugins: [
-    new HtmlWebpackPlugin({ template: './src/index.html' }),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      favicon: './favicon.ico',
+    }),
     new MiniCssExtractPlugin({
       filename: prod ? '[name].[hash].css' : '[name].css',
       chunkFilename: prod ? '[id].[hash].css' : '[id].css',
