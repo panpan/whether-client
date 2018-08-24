@@ -1,6 +1,6 @@
 import React from 'react';
-import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
+import { Query } from 'react-apollo';
 
 import Address from './Address';
 import Weather from './Weather';
@@ -14,7 +14,6 @@ const Whether = () => (
       <div styleName='whether'>
         <Address />
         <Weather address={data.address} />
-        <h2 styleName='umbrella'>&#9730;</h2>
       </div>
     )}
   </Query>

@@ -1,4 +1,19 @@
+body {
+	background: lavender;
+}
+
+h1 {
+	margin-bottom: 40px;
+	color: tomato;
+	text-align: center;
+}
+
 .app {
 	margin-top: 60px;
 	text-align: center;
+
+	.umbrella {
+		color: midnightblue;
+		transform: rotate(.5turn);
+	}
 }
